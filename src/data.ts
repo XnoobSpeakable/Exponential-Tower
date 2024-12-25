@@ -2,6 +2,10 @@ import {ExpantaNumX} from "./ExpantaNumX.ts"
 
 const player = {
     alphaone: new ExpantaNumX('1'),
+    alphatwo: new ExpantaNumX('0'),
+    costs: {
+        convertaone: new ExpantaNumX('1e15')
+    }
 };
 
 const gameId = "exponentialtower_savefile";

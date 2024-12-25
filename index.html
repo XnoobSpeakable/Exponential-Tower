@@ -7,6 +7,7 @@
   </head>
   <body>
     <script type="module" src="src/main.ts"></script>
+    <div id="overview"></div>
     <div class="floor bordered centered">
       <div class="centered">Floor 2</div>
       <div id="alphatwotext" class="centered">You have 0 α<sub>2</sub></div>
@@ -14,9 +15,15 @@
     <div class="floor bordered centered">
       <div class="centered">Floor 1</div>
       <div id="alphaonetext" class="centered">You have 0 α<sub>1</sub></div>
-      <button id="doubleaone">Double α<sub>1</sub></button>
+      <div class="buttonrow">
+        <button id="doubleaone">Double α<sub>1</sub></button>
+        <div>
+          <button id="convertaone">Convert α<sub>1</sub> to α<sub>2</sub></button>
+          <p id="convertaonecost">Cost: 1e15</p>
+        </div>
+      </div>
     </div>
-    <p id="version">a0.0.5</p>
+    <div id="version">α0.0.6</div>
     <button id="wipesave">wipesave</button>
   </body>
 </html>
