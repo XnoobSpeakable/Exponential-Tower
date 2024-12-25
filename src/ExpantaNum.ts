@@ -1,3 +1,5 @@
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-useless-escape */
 /* eslint-disable prefer-rest-params */
 /* eslint-disable no-loss-of-precision */
 /* eslint-disable @typescript-eslint/no-this-alias */

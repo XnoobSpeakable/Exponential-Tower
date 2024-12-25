@@ -7,6 +7,8 @@ load()
 function format(a: { toStringWithDecimalPlaces: (arg0: number) => unknown; }) {
     return a.toStringWithDecimalPlaces(3)
 }
+const x = new ExpantaNum("2")
+console.log(x)
 
 element("doubleaone").onclick = () => {
     player.alphaone = player.alphaone.times(2)
