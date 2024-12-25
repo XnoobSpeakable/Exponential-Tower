@@ -1,6 +1,6 @@
+import "./ExpantaNum.ts"
 
 const player = {
-    // @ts-expect-error hhh
     alphaone: new ExpantaNum('1'),
 };
 
