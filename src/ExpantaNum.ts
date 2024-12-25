@@ -9,14 +9,39 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
+/* ExpantaNum by Naruyoko, modified by XnoobSpeakable 
+ExpantaNum's license:
+MIT License
+
+Copyright (c) 2020 Naruyoko
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
 //Code snippets and templates from Decimal.js
 
-;(function (globalScope) {
+
   "use strict";
 
 
   // --  EDITABLE DEFAULTS  -- //
-  var ExpantaNum = {
+  export var ExpantaNum = {
 
     // The maximum number of operators stored in array.
     // If the number of operations exceed the limit, then the least significant operations will be discarded.
@@ -1861,9 +1886,9 @@
   // Create and configure initial ExpantaNum constructor.
   ExpantaNum=clone(ExpantaNum);
 
-  ExpantaNum=defineConstants(ExpantaNum);
+  export const ExpantaNumX=defineConstants(ExpantaNum);
 
-  ExpantaNum['default']=ExpantaNum.ExpantaNum=ExpantaNum;
+  ExpantaNumX['default']=ExpantaNumX.ExpantaNum=ExpantaNumX;
 
   // Export.
 
@@ -1876,11 +1901,5 @@
   } else if (typeof module != 'undefined' && module.exports) {
     module.exports = ExpantaNum;
     // Browser.
-  } else {
-    if (!globalScope) {
-      globalScope = typeof self != 'undefined' && self && self.self == self
-        ? self : Function('return this')();
-    }
-    globalScope.ExpantaNum = ExpantaNum;
-  }
-})(this);
+  } 
+

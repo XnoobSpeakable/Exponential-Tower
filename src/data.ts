@@ -1,7 +1,7 @@
-import "./ExpantaNum.ts"
+import {ExpantaNumX} from "./ExpantaNum.ts"
 
 const player = {
-    alphaone: new ExpantaNum('1'),
+    alphaone: new ExpantaNumX('1'),
 };
 
 const gameId = "exponentialtower_savefile";
