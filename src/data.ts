@@ -1,5 +1,3 @@
-import './ExpantaNum.js'
-
 const player = {
     // @ts-expect-error ExpantaNum lmao
     alphaone: new ExpantaNum('1'),
