@@ -1,4 +1,4 @@
-import {ExpantaNumX} from "./ExpantaNum.ts"
+import {ExpantaNumX} from "./ExpantaNumX.ts"
 
 const player = {
     alphaone: new ExpantaNumX('1'),

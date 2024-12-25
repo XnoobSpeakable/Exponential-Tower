@@ -4,6 +4,12 @@ import element from './dom.js';
 
 load()
 
+function toBottom()
+{
+    window.scrollTo(0, document.body.scrollHeight);
+}
+window.onload=toBottom;
+
 function format(a: { toStringWithDecimalPlaces: (arg0: number) => unknown; }) {
     return a.toStringWithDecimalPlaces(3)
 }

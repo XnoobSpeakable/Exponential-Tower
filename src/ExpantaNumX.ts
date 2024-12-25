@@ -1,15 +1,4 @@
-/* eslint-disable no-prototype-builtins */
-/* eslint-disable no-useless-escape */
-/* eslint-disable prefer-rest-params */
-/* eslint-disable no-loss-of-precision */
-/* eslint-disable @typescript-eslint/no-this-alias */
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable no-var */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
-/* ExpantaNum by Naruyoko, modified by XnoobSpeakable 
+/* ExpantaNum by Naruyoko, modified by XnoobSpeakable (with help from jakub791)
 ExpantaNum's license:
 MIT License
 
@@ -34,6 +23,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-useless-escape */
+/* eslint-disable prefer-rest-params */
+/* eslint-disable no-loss-of-precision */
+/* eslint-disable @typescript-eslint/no-this-alias */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable no-var */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
+
 //Code snippets and templates from Decimal.js
 
 
@@ -41,7 +42,7 @@ SOFTWARE.
 
 
   // --  EDITABLE DEFAULTS  -- //
-  export var ExpantaNum = {
+  var ExpantaNum = {
 
     // The maximum number of operators stored in array.
     // If the number of operations exceed the limit, then the least significant operations will be discarded.
@@ -1886,7 +1887,7 @@ SOFTWARE.
   // Create and configure initial ExpantaNum constructor.
   ExpantaNum=clone(ExpantaNum);
 
-  export const ExpantaNumX=defineConstants(ExpantaNum);
+  export const ExpantaNumX=defineConstants(ExpantaNum)
 
   ExpantaNumX['default']=ExpantaNumX.ExpantaNum=ExpantaNumX;
 
