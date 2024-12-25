@@ -1,3 +1,12 @@
+/* eslint-disable prefer-rest-params */
+/* eslint-disable no-loss-of-precision */
+/* eslint-disable @typescript-eslint/no-this-alias */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable no-var */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 //Code snippets and templates from Decimal.js
 
 ;(function (globalScope) {
