@@ -1,12 +1,45 @@
 import {ExpantaNumX} from "./ExpantaNumX.ts"
+import { ExpantaNumXType } from './ExpantaNumX.js';
+import { Upgrade } from "./main.ts";
 
 const player = {
     alphaone: new ExpantaNumX('1'),
     alphatwo: new ExpantaNumX('0'),
-    costs: {
-        convertaone: new ExpantaNumX('1e15')
-    }
+    upgrades: {
+        convertaone: {
+            buttonDiv: "convertaone",
+            costDiv: "convertaonecost",
+            cost: new ExpantaNumX('1e15'),
+            currency: "alphaone",
+            onClick: () => {
+                player.alphaone = player.alphaone.div(player.upgrades.convertaone.cost)
+                player.alphatwo = player.alphatwo.plus(1)
+                player.upgrades.convertaone.cost = player.upgrades.convertaone.cost.times(1e15)
+            }
+        },
+        upaonemult: {
+            buttonDiv: "upaonemult",
+            costDiv: "upaonemultcost",
+            cost: new ExpantaNumX('1'),
+            currency: "alphatwo",
+            onClick: () => {
+                player.doubleaonemult = player.doubleaonemult.plus(1)
+                player.alphatwo = player.alphatwo.minus(player.upgrades.upaonemult.cost)
+                player.upgrades.upaonemult.cost = player.upgrades.upaonemult.cost.times(2)
+            }
+        }
+    },
+    doubleaonemult: new ExpantaNumX('2')
 };
+
+export interface Player {
+    alphaone: ExpantaNumXType;
+    alphatwo: ExpantaNumXType;
+    upgrades: {
+        [key: string]: Upgrade;
+    },
+    doubleaonemult: ExpantaNumXType;
+}
 
 const gameId = "exponentialtower_savefile";
 

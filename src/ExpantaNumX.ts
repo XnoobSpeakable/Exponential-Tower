@@ -1887,7 +1887,9 @@ SOFTWARE.
   // Create and configure initial ExpantaNum constructor.
   ExpantaNum=clone(ExpantaNum);
 
-  export const ExpantaNumX=defineConstants(ExpantaNum)
+  export type ExpantaNumXType = typeof ExpantaNumX;
+
+  export const ExpantaNumX: ExpantaNumXType =defineConstants(ExpantaNum)
 
   ExpantaNumX['default']=ExpantaNumX.ExpantaNum=ExpantaNumX;
 
