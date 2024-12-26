@@ -5,7 +5,9 @@ import { ExpantaNumXType } from './ExpantaNumX.js';
 import { loadCosts, Upgrade, upgrades } from './upgrades.js';
 
 load()
-loadCosts()
+setTimeout(() => {
+    loadCosts()
+}, 5);
 
 function toBottom()
 {
