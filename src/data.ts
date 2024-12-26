@@ -33,7 +33,7 @@ const player: Player = {
 };
 
 export interface Player {
-    alphaone: ExpantaNumXType | string;
+    alphaone: ExpantaNumXType;
     alphatwo: ExpantaNumXType;
     upgrades: {
         [key: string]: Upgrade;
@@ -80,6 +80,8 @@ export function load(): void {
     deepMerge(player, parsed);
     for(const key in player) {
         if(typeof player[key] === "string") {
+            console.log(player[key]);
+            console.log(new ExpantaNumX(player[key]));
             player[key] = new ExpantaNumX(player[key]);
         }
     }
