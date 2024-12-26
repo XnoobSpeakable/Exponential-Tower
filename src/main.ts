@@ -2,7 +2,7 @@ import './style.css'
 import player, { getUpgradeTimesBought, load, resetGame, save } from './data';
 import element from './dom';
 import { format } from './util';
-import { loadCosts, Upgrade, upgrades } from './upgrades';
+import { loadCosts, upgrades } from './upgrades';
 
 load()
 loadCosts()
@@ -20,6 +20,11 @@ function clickDoubler() {
 element("doubleaone").onclick = () => { clickDoubler()};
 
 let autoclickInterval: number | undefined = undefined;
+
+if(getUpgradeTimesBought("autoclick").gt(0) && getUpgradeTimesBought("autoclick").lt(20)) {
+    clearInterval(autoclickInterval);
+    autoclickInterval = setInterval(() => { clickDoubler() }, player.autoclickKey)
+}
 
 //game loop
 setInterval(() => {

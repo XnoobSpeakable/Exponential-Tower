@@ -65,7 +65,7 @@ export const upgrades: Upgrades = {
         cost: new ExpantaNumX('1e50'),
         costType: "sub",
         costFormula: () => {
-            upgrades.upaonemult.cost = ExpantaNumX.pow(1e50, player.upgradesBought.autoclick.plus(1))
+            upgrades.autoclick.cost = ExpantaNumX.pow(1e50, player.upgradesBought.autoclick.plus(1))
         },
         currency: "alphaone",
         upgrFunction: () => {
@@ -135,14 +135,14 @@ export function loadCosts() {
 }
 
 element("convertaone").onclick = () => {
-    buyUpgrade(upgrades.convertaone as Upgrade)
+    buyUpgrade(upgrades.convertaone)
 };
 element("upaonemult").onclick = () => {
-    buyUpgrade(upgrades.upaonemult as Upgrade)
+    buyUpgrade(upgrades.upaonemult)
 };
 element("upaonepower").onclick = () => {
-    buyUpgrade(upgrades.upaonepower as Upgrade)
+    buyUpgrade(upgrades.upaonepower)
 };
 element("autoclick").onclick = () => {
-    buyUpgrade(upgrades.autoclick as Upgrade)
+    buyUpgrade(upgrades.autoclick)
 };
