@@ -44,7 +44,19 @@ export const upgrades: Upgrades = {
         currency: "alphatwo",
         upgrFunction: () => {
             player.doubleaonemult = player.doubleaonemult.plus(1)
-            upgrades.upaonemult.cost = upgrades.upaonemult.cost.times(2)
+        }
+    },
+    upaonepower: {
+        buttonDiv: "upaonepower",
+        costDiv: "upaonepowercost",
+        cost: new ExpantaNumX('1'),
+        costType: "sub",
+        costFormula: () => {
+            upgrades.upaonepower.cost = player.upgradesBought.upaonepower.plus(1)
+        },
+        currency: "alphatwo",
+        upgrFunction: () => {
+            player.doubleaonemult = player.doubleaonemult.pow(getUpgradeTimesBought("upaonepower").div(10).plus(1))
         }
     }
 }
@@ -93,9 +105,16 @@ export function loadCosts() {
     }
 }
 
+export function getUpgradeTimesBought(upgrade: string) {
+    return player.upgradesBought[upgrade]
+}
+
 element("convertaone").onclick = () => {
     buyUpgrade(upgrades.convertaone as Upgrade)
 };
 element("upaonemult").onclick = () => {
     buyUpgrade(upgrades.upaonemult as Upgrade)
+};
+element("upaonepower").onclick = () => {
+    buyUpgrade(upgrades.upaonepower as Upgrade)
 };

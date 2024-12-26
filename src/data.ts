@@ -6,7 +6,8 @@ const player: Player = {
     alphatwo: new ExpantaNumX('0'),
     upgradesBought: {
         convertaone: new ExpantaNumX('0'),
-        upaonemult: new ExpantaNumX('0')
+        upaonemult: new ExpantaNumX('0'),
+        upaonepower: new ExpantaNumX('0')
     },
     doubleaonemult: new ExpantaNumX('2')
 };

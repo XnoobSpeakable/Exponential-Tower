@@ -2,7 +2,7 @@ import './style.css'
 import player, { load, resetGame, save } from './data.js';
 import element from './dom.js';
 import { ExpantaNumXType } from './ExpantaNumX.js';
-import { loadCosts, Upgrade, upgrades } from './upgrades.js';
+import { getUpgradeTimesBought, loadCosts, Upgrade, upgrades } from './upgrades.js';
 
 load()
 setTimeout(() => {
@@ -25,7 +25,6 @@ element("doubleaone").onclick = () => {
 
 //game loop
 setInterval(() => {
-
 }, 100);
 
 function updateTexts() {
@@ -39,8 +38,12 @@ function updateTexts() {
 
 function updateButtons() {
     for (const upgrade in upgrades) {
+        console.log(upgrade)
         const upgradeTyped = upgrades[upgrade as keyof typeof upgrades] as Upgrade;
         const canBuy = player[upgradeTyped.currency].gte(upgradeTyped.cost)
+        console.log(canBuy)
+        console.log(player[upgradeTyped.currency].toString())
+        console.log(upgradeTyped.cost.toString())
         if(canBuy) {
             element(upgradeTyped.buttonDiv).removeAttribute("disabled")
         } else {
