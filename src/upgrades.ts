@@ -1,4 +1,4 @@
-import player, { getUpgradeTimesBought } from "./data";
+import player from "./data";
 import element from "./dom";
 import { ExpantaNumX, ExpantaNumXType } from "./ExpantaNumX";
 import { format } from "./util"
@@ -56,7 +56,7 @@ export const upgrades: Upgrades = {
         },
         currency: "alphatwo",
         upgrFunction: () => {
-            player.doubleaonemult = player.doubleaonemult.pow(getUpgradeTimesBought("upaonepower").div(10).plus(1))
+            player.doubleaonemult = player.doubleaonemult.pow(1.1)
         }
     },
     autoclick: {
@@ -66,10 +66,13 @@ export const upgrades: Upgrades = {
         costType: "sub",
         costFormula: () => {
             upgrades.autoclick.cost = ExpantaNumX.pow(1e50, player.upgradesBought.autoclick.plus(1))
+            if(player.upgradesBought.autoclick.gt(25)) {
+                upgrades.autoclick.cost = new ExpantaNumX("Infinity")
+            }
         },
         currency: "alphaone",
         upgrFunction: () => {
-            if(player.upgradesBought.autoclick.lte(10)) {
+            if(player.upgradesBought.autoclick.lte(25)) {
                 player.autoclickKey = 1000 / player.upgradesBought.autoclick.toNumber()
             }
             player.autoclickFlag = true

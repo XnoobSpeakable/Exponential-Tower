@@ -21,14 +21,14 @@ element("doubleaone").onclick = () => { clickDoubler()};
 
 let autoclickInterval: number | undefined = undefined;
 
-if(getUpgradeTimesBought("autoclick").gt(0) && getUpgradeTimesBought("autoclick").lt(20)) {
+if(getUpgradeTimesBought("autoclick").gt(0)) {
     clearInterval(autoclickInterval);
     autoclickInterval = setInterval(() => { clickDoubler() }, player.autoclickKey)
 }
 
 //game loop
 setInterval(() => {
-    if(getUpgradeTimesBought("autoclick").gt(0) && getUpgradeTimesBought("autoclick").lt(20) && player.autoclickFlag) {
+    if(getUpgradeTimesBought("autoclick").gt(0) && player.autoclickFlag) {
         clearInterval(autoclickInterval);
         autoclickInterval = setInterval(() => { clickDoubler() }, player.autoclickKey)
     }
