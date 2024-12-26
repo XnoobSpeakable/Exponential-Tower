@@ -2,7 +2,7 @@ import {ExpantaNumX} from "./ExpantaNumX.ts"
 import { ExpantaNumXType } from './ExpantaNumX.js';
 import { Upgrade } from "./main.ts";
 
-const player = {
+const player: Player = {
     alphaone: new ExpantaNumX('1'),
     alphatwo: new ExpantaNumX('0'),
     upgrades: {
@@ -33,12 +33,13 @@ const player = {
 };
 
 export interface Player {
-    alphaone: ExpantaNumXType;
+    alphaone: ExpantaNumXType | string;
     alphatwo: ExpantaNumXType;
     upgrades: {
         [key: string]: Upgrade;
     },
     doubleaonemult: ExpantaNumXType;
+    [key: string]: ExpantaNumXType | { [key: string]: Upgrade } | string;
 }
 
 const gameId = "exponentialtower_savefile";
@@ -77,6 +78,11 @@ export function load(): void {
     if (save === null) return;
     const parsed = JSON.parse(save);
     deepMerge(player, parsed);
+    for(const key in player) {
+        if(typeof player[key] === "string") {
+            player[key] = new ExpantaNumX(player[key]);
+        }
+    }
 }
 
 export function resetGame(): void {

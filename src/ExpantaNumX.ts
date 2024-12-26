@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* ExpantaNum by Naruyoko, modified by XnoobSpeakable (with help from jakub791)
 ExpantaNum's license:
 MIT License
@@ -56,7 +57,7 @@ SOFTWARE.
     //
     // JSON   0 JSON object
     // STRING 1 String
-    serializeMode: 0,
+    serializeMode: 1,
 
     // Deprecated
     // Level of debug information printed in console
@@ -1373,12 +1374,18 @@ SOFTWARE.
     if (ExpantaNum.serializeMode==ExpantaNum.JSON){
       var a=[];
       for (var i=0;i<this.array.length;++i) a.push([this.array[i][0],this.array[i][1]]);
+      console.log ({
+        array:a,
+        layer:this.layer,
+        sign:this.sign
+      })
       return {
         array:a,
         layer:this.layer,
         sign:this.sign
       };
     }else if (ExpantaNum.serializeMode==ExpantaNum.STRING){
+      console.log(typeof this.toString())
       return this.toString();
     }
   };
@@ -1887,7 +1894,13 @@ SOFTWARE.
   // Create and configure initial ExpantaNum constructor.
   ExpantaNum=clone(ExpantaNum);
 
-  export type ExpantaNumXType = typeof ExpantaNumX;
+  export type ExpantaNumXType = {
+    new (input?: number | string | bigint | any[], input2?: any[]): ExpantaNumXType;
+    maxOps: number;
+    serializeMode: number;
+    debug: number;
+    [key: string]: any;
+  }
 
   export const ExpantaNumX: ExpantaNumXType =defineConstants(ExpantaNum)
 

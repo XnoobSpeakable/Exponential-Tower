@@ -1,12 +1,11 @@
 import './style.css'
-import player, { load, Player, resetGame, save } from './data.js';
+import player, { load, resetGame, save } from './data.js';
 import element from './dom.js';
 import { ExpantaNumXType } from './ExpantaNumX.js';
 
 function loadMisc() {
-    const playerTyped = player as Player;
-    for (const upgrade in playerTyped.upgrades) {
-        const upgradeTyped = playerTyped.upgrades[upgrade];
+    for (const upgrade in player.upgrades) {
+        const upgradeTyped = player.upgrades[upgrade];
         updateCost(upgradeTyped.costDiv, upgradeTyped.cost)
     }
 }
@@ -22,13 +21,12 @@ export interface Upgrade {
     onClick: () => void;
 }
 
-export function updateCost(costDiv: string, cost: unknown) {
+export function updateCost(costDiv: string, cost: ExpantaNumXType) {
     element(costDiv).innerHTML = `Cost: ${format(cost)} α<sub>1</sub>`
 }
 
 export function buyUpgrade(upgrade: Upgrade) {
-    const playerTyped = player as Player;
-    if(playerTyped[upgrade.currency].gte(upgrade.cost)) {
+    if(player[upgrade.currency].gte(upgrade.cost)) {
         upgrade.onClick()
     }
     updateCost(upgrade.costDiv, upgrade.cost)
@@ -40,8 +38,8 @@ function toBottom()
 }
 window.onload=toBottom;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function format(a: any) {
+
+export function format(a: ExpantaNumXType) {
     return a.toStringWithDecimalPlaces(3)
 }
 
@@ -72,10 +70,9 @@ function updateTexts() {
 
 
 function updateButtons() {
-    const playerTyped = player as Player;
-    for (const upgrade in playerTyped.upgrades) {
-        const upgradeTyped = playerTyped.upgrades[upgrade as keyof typeof playerTyped.upgrades] as Upgrade;
-        const canBuy = playerTyped[upgradeTyped.currency].gte(upgradeTyped.cost)
+    for (const upgrade in player.upgrades) {
+        const upgradeTyped = player.upgrades[upgrade as keyof typeof player.upgrades] as Upgrade;
+        const canBuy = player[upgradeTyped.currency].gte(upgradeTyped.cost)
         if(canBuy) {
             element(upgradeTyped.buttonDiv).removeAttribute("disabled")
         } else {
