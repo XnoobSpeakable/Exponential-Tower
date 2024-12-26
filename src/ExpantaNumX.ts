@@ -1374,18 +1374,12 @@ SOFTWARE.
     if (ExpantaNum.serializeMode==ExpantaNum.JSON){
       var a=[];
       for (var i=0;i<this.array.length;++i) a.push([this.array[i][0],this.array[i][1]]);
-      console.log ({
-        array:a,
-        layer:this.layer,
-        sign:this.sign
-      })
       return {
         array:a,
         layer:this.layer,
         sign:this.sign
       };
     }else if (ExpantaNum.serializeMode==ExpantaNum.STRING){
-      console.log(typeof this.toString())
       return this.toString();
     }
   };

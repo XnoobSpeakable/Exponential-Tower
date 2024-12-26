@@ -80,9 +80,12 @@ export function load(): void {
     deepMerge(player, parsed);
     for(const key in player) {
         if(typeof player[key] === "string") {
-            console.log(player[key]);
-            console.log(new ExpantaNumX(player[key]));
             player[key] = new ExpantaNumX(player[key]);
+        }
+    }
+    for(const key in player.upgrades) {
+        if(typeof player.upgrades[key].cost === "string") {
+        player.upgrades[key].cost = new ExpantaNumX(player.upgrades[key].cost);
         }
     }
 }
