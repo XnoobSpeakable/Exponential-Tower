@@ -1,33 +1,12 @@
 import {ExpantaNumX} from "./ExpantaNumX.ts"
 import { ExpantaNumXType } from './ExpantaNumX.js';
-import { Upgrade } from "./main.ts";
 
 const player: Player = {
     alphaone: new ExpantaNumX('1'),
     alphatwo: new ExpantaNumX('0'),
-    upgrades: {
-        convertaone: {
-            buttonDiv: "convertaone",
-            costDiv: "convertaonecost",
-            cost: new ExpantaNumX('1e15'),
-            currency: "alphaone",
-            onClick: () => {
-                player.alphaone = player.alphaone.div(player.upgrades.convertaone.cost)
-                player.alphatwo = player.alphatwo.plus(1)
-                player.upgrades.convertaone.cost = player.upgrades.convertaone.cost.times(1e15)
-            }
-        },
-        upaonemult: {
-            buttonDiv: "upaonemult",
-            costDiv: "upaonemultcost",
-            cost: new ExpantaNumX('1'),
-            currency: "alphatwo",
-            onClick: () => {
-                player.doubleaonemult = player.doubleaonemult.plus(1)
-                player.alphatwo = player.alphatwo.minus(player.upgrades.upaonemult.cost)
-                player.upgrades.upaonemult.cost = player.upgrades.upaonemult.cost.times(2)
-            }
-        }
+    upgradesBought: {
+        convertaone: new ExpantaNumX('0'),
+        upaonemult: new ExpantaNumX('0')
     },
     doubleaonemult: new ExpantaNumX('2')
 };
@@ -35,11 +14,11 @@ const player: Player = {
 export interface Player {
     alphaone: ExpantaNumXType;
     alphatwo: ExpantaNumXType;
-    upgrades: {
-        [key: string]: Upgrade;
+    upgradesBought: {
+        [key: string]: ExpantaNumXType;
     },
     doubleaonemult: ExpantaNumXType;
-    [key: string]: ExpantaNumXType | { [key: string]: Upgrade } | string;
+    [key: string]: ExpantaNumXType | { [key: string]: ExpantaNumXType };
 }
 
 const gameId = "exponentialtower_savefile";
@@ -83,9 +62,9 @@ export function load(): void {
             player[key] = new ExpantaNumX(player[key]);
         }
     }
-    for(const key in player.upgrades) {
-        if(typeof player.upgrades[key].cost === "string") {
-        player.upgrades[key].cost = new ExpantaNumX(player.upgrades[key].cost);
+    for(const key in player.upgradesBought) {
+        if(typeof player.upgradesBought[key] === "string") {
+        player.upgradesBought[key] = new ExpantaNumX(player.upgradesBought[key]);
         }
     }
 }
