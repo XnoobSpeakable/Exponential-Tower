@@ -4,15 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Exponential Tower</title>
-    <script type="module" crossorigin src="./assets/index-CZvpFYgl.js"></script>
+    <script type="module" crossorigin src="./assets/index-DFJ0FASr.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-flEVLJEB.css">
   </head>
   <body>
+
     <div id="overview"></div>
+
     <div class="floor bordered centered">
       <div class="centered">Floor 2</div>
       <div id="alphatwotext" class="centered">You have 0 α<sub>2</sub></div>
+      <div class="buttonrow">
+        <div>
+          <button id="upaonemult">Increase α<sub>1</sub> multiplier power (+1x)</button>
+          <p id="upaonemultcost">Cost: 1</p>
+        </div>
+        <div>
+          <button id="upaonepower">Raise α<sub>1</sub> to a power (+ ^1.1)</button>
+          <p id="upaonepowercost">Cost: 3</p>
+        </div>
+      </div>
     </div>
+
     <div class="floor bordered centered">
       <div class="centered">Floor 1</div>
       <div id="alphaonetext" class="centered">You have 0 α<sub>1</sub></div>
@@ -24,7 +37,8 @@
         </div>
       </div>
     </div>
-    <div id="version">α0.0.6</div>
+
+    <div id="version">α0.0.7</div>
     <button id="wipesave">wipesave</button>
   </body>
 </html>
