@@ -2,7 +2,7 @@ import './style.css'
 import player, { load, resetGame, save } from './data.js';
 import element from './dom.js';
 import { ExpantaNumXType } from './ExpantaNumX.js';
-import { buyUpgrade, loadCosts, Upgrade, upgrades } from './upgrades.js';
+import { loadCosts, Upgrade, upgrades } from './upgrades.js';
 
 load()
 loadCosts()
