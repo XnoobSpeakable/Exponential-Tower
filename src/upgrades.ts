@@ -1,7 +1,7 @@
-import player from "./data";
+import player, { getUpgradeTimesBought } from "./data";
 import element from "./dom";
 import { ExpantaNumX, ExpantaNumXType } from "./ExpantaNumX";
-import { format } from "./main"
+import { format } from "./util"
 
 export type Currency = "alphaone" | "alphatwo"
 
@@ -58,18 +58,38 @@ export const upgrades: Upgrades = {
         upgrFunction: () => {
             player.doubleaonemult = player.doubleaonemult.pow(getUpgradeTimesBought("upaonepower").div(10).plus(1))
         }
-    }
+    },
+    autoclick: {
+        buttonDiv: "autoclick",
+        costDiv: "autoclickcost",
+        cost: new ExpantaNumX('1e50'),
+        costType: "sub",
+        costFormula: () => {
+            upgrades.upaonemult.cost = ExpantaNumX.pow(1e50, player.upgradesBought.autoclick.plus(1))
+        },
+        currency: "alphaone",
+        upgrFunction: () => {
+            if(player.upgradesBought.autoclick.lte(10)) {
+                player.autoclickKey = 1000 / player.upgradesBought.autoclick.toNumber()
+            }
+            player.autoclickFlag = true
+        }
+    },
 }
 
-export function updateCostDisp(costDiv: string, cost: ExpantaNumXType, curr: Currency) {
+export function updateCostDisp(costDiv: string, cost: ExpantaNumXType, curr: Currency, d: "sub" | "div" = "sub") {
+    let currencyrender = ""
+    let costText = "Cost:"
     switch (curr) {
         case "alphaone":
-            element(costDiv).innerHTML = `Cost: ${format(cost)} α<sub>1</sub>`
+            currencyrender = 'α<sub>1</sub>'
             break;
         case "alphatwo":
-            element(costDiv).innerHTML = `Cost: ${format(cost)} α<sub>2</sub>`
+            currencyrender = 'α<sub>2</sub>'
             break;
     }
+    if(d === "div") costText = "DivCost:"
+    element(costDiv).innerHTML = `${costText} ${format(cost)} ${currencyrender}`
 }
 
 //snippet from https://www.webdevtutor.net/blog/typescript-get-object-key-by-value
@@ -92,7 +112,12 @@ export function buyUpgrade(upgrade: Upgrade) {
         //update cost, execute what the upgrade does, update displayed cost
         upgrade.costFormula()
         upgrade.upgrFunction()
-        updateCostDisp(upgrade.costDiv, upgrade.cost, upgrade.currency)
+        if(upgrade.costType === "sub") {
+            updateCostDisp(upgrade.costDiv, upgrade.cost, upgrade.currency, "sub")
+        } else {
+            updateCostDisp(upgrade.costDiv, upgrade.cost, upgrade.currency, "div")
+        }
+
     }
 }
 
@@ -101,12 +126,12 @@ export function loadCosts() {
     for (const upgrade in upgrades) {
         const upgradeObj = upgrades[upgrade];
         upgradeObj.costFormula()
-        updateCostDisp(upgradeObj.costDiv, upgradeObj.cost, upgradeObj.currency)
+        if(upgradeObj.costType === "sub") {
+            updateCostDisp(upgradeObj.costDiv, upgradeObj.cost, upgradeObj.currency, "sub")
+        } else {
+            updateCostDisp(upgradeObj.costDiv, upgradeObj.cost, upgradeObj.currency, "div")
+        }
     }
-}
-
-export function getUpgradeTimesBought(upgrade: string) {
-    return player.upgradesBought[upgrade]
 }
 
 element("convertaone").onclick = () => {
@@ -117,4 +142,7 @@ element("upaonemult").onclick = () => {
 };
 element("upaonepower").onclick = () => {
     buyUpgrade(upgrades.upaonepower as Upgrade)
+};
+element("autoclick").onclick = () => {
+    buyUpgrade(upgrades.autoclick as Upgrade)
 };

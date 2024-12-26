@@ -1,13 +1,11 @@
 import './style.css'
-import player, { load, resetGame, save } from './data.js';
-import element from './dom.js';
-import { ExpantaNumXType } from './ExpantaNumX.js';
-import { loadCosts, Upgrade, upgrades } from './upgrades.js';
+import player, { getUpgradeTimesBought, load, resetGame, save } from './data';
+import element from './dom';
+import { format } from './util';
+import { loadCosts, Upgrade, upgrades } from './upgrades';
 
 load()
-setTimeout(() => {
-    loadCosts()
-}, 5);
+loadCosts()
 
 function toBottom()
 {
@@ -15,16 +13,21 @@ function toBottom()
 }
 window.onload=toBottom;
 
-export function format(a: ExpantaNumXType) {
-    return a.toStringWithDecimalPlaces(3)
+function clickDoubler() {
+    player.alphaone = player.alphaone.times(player.doubleaonemult)
 }
 
-element("doubleaone").onclick = () => {
-    player.alphaone = player.alphaone.times(player.doubleaonemult)
-};
+element("doubleaone").onclick = () => { clickDoubler()};
+
+let autoclickInterval: number | undefined = undefined;
 
 //game loop
 setInterval(() => {
+    if(getUpgradeTimesBought("autoclick").gt(0) && getUpgradeTimesBought("autoclick").lt(20) && player.autoclickFlag) {
+        clearInterval(autoclickInterval);
+        autoclickInterval = setInterval(() => { clickDoubler() }, player.autoclickKey)
+    }
+    player.autoclickFlag = false
 }, 100);
 
 function updateTexts() {
@@ -38,16 +41,12 @@ function updateTexts() {
 
 function updateButtons() {
     for (const upgrade in upgrades) {
-        console.log(upgrade)
-        const upgradeTyped = upgrades[upgrade as keyof typeof upgrades] as Upgrade;
-        const canBuy = player[upgradeTyped.currency].gte(upgradeTyped.cost)
-        console.log(canBuy)
-        console.log(player[upgradeTyped.currency].toString())
-        console.log(upgradeTyped.cost.toString())
+        const upgradeObj = upgrades[upgrade];
+        const canBuy = player[upgradeObj.currency].gte(upgradeObj.cost)
         if(canBuy) {
-            element(upgradeTyped.buttonDiv).removeAttribute("disabled")
+            element(upgradeObj.buttonDiv).removeAttribute("disabled")
         } else {
-            element(upgradeTyped.buttonDiv).setAttribute("disabled", "disabled")
+            element(upgradeObj.buttonDiv).setAttribute("disabled", "disabled")
         }
     }
 }
