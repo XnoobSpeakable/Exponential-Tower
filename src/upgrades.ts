@@ -208,9 +208,7 @@ export function loadCosts() {
 }
 
 element("convertaone").onclick = () => {
-    buyUpgrade(upgrades.convertaone)
-    upgrades.bulkconvertaone.costFormula() //not a mistake
-};
+    buyUpgrade(upgrades.convertaone)};
 element("upaonemult").onclick = () => {
     buyUpgrade(upgrades.upaonemult)
 };
@@ -227,9 +225,7 @@ element("bulkup").onclick = () => {
     buyUpgrade(upgrades.bulkup)
 };
 element("bulkconvertaone").onclick = () => {
-    buyUpgrade(upgrades.bulkconvertaone)
-    upgrades.convertaone.costFormula() //not a mistake
-};
+    buyUpgrade(upgrades.bulkconvertaone)};
 element("bulkautoclick").onclick = () => {
     buyUpgrade(upgrades.bulkautoclick)
 };

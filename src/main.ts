@@ -2,7 +2,7 @@ import './style.css'
 import player, { getUpgradeTimesBought, load, resetGame, save } from './data';
 import element from './dom';
 import { format } from './util';
-import { loadCosts, upgrades } from './upgrades';
+import { loadCosts, updateCostDisp, upgrades } from './upgrades';
 import { ExpantaNumX, ExpantaNumXType } from './ExpantaNumX';
 
 load()
@@ -51,6 +51,11 @@ setInterval(() => {
         bulkAutoclickInterval = setInterval(() => { clickDoubler() }, player.autoclickKey)
         player.bulkAutoclickFlag = false
     }
+
+    upgrades.convertaone.costFormula()
+    updateCostDisp(upgrades.convertaone.costDiv, upgrades.convertaone.cost, upgrades.convertaone.currency, "div")
+    upgrades.bulkconvertaone.costFormula() 
+    updateCostDisp(upgrades.bulkconvertaone.costDiv, upgrades.bulkconvertaone.cost, upgrades.bulkconvertaone.currency, "div")
 }, 100);
 
 function updateTexts() {
@@ -74,12 +79,7 @@ function updateButtons() {
             element(upgradeObj.buttonDiv).setAttribute("disabled", "disabled")
         }
     }
-    if(getUpgradeTimesBought("bulkup").gt(0)) {
-        element("bulkdoubleaone").removeAttribute("disabled");
-        element("bulkconvertaone").removeAttribute("disabled");
-        element("bulkautoclick").removeAttribute("disabled");
-
-    } else {
+    if(!getUpgradeTimesBought("bulkup").gt(0)) {
         element("bulkdoubleaone").setAttribute("disabled", "disabled");
         element("bulkconvertaone").setAttribute("disabled", "disabled");
         element("bulkautoclick").setAttribute("disabled", "disabled");
@@ -90,7 +90,6 @@ function updateButtons() {
 setInterval(() => {
     updateTexts()
     updateButtons()
-    
 }, 100);
 
 //save loop
