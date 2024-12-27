@@ -98,8 +98,6 @@ setInterval(() => {
 }, 4000);
 
 element("wipesave").onclick = () => {resetGame()};
-
-
 element("export").onclick = () => { saveExport()};
 element("import").onclick = () => { saveImport()};
 element("saveimportconfirm").onclick = () => { saveImportConfirm()};

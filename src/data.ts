@@ -66,7 +66,7 @@ export function deepMerge<T extends object>(source: T, data: T): void {
 }
 
 export function save(): string {
-    const savefile = JSON.stringify(player);
+    const savefile = btoa(JSON.stringify(player));
     localStorage.setItem(gameId, savefile);
     return savefile;
 }
@@ -74,7 +74,7 @@ export function save(): string {
 export function load(): void {
     const save = localStorage.getItem(gameId);
     if (save === null) return;
-    const parsed = JSON.parse(save);
+    const parsed = JSON.parse(save.startsWith("{") ? save : atob(save));
     deepMerge(player, parsed);
     for(const key in player) {
         if(typeof player[key] === "string") {
@@ -90,12 +90,7 @@ export function load(): void {
 
 export function resetGame(): void {
     localStorage.removeItem(gameId);
-}
-
-export default player;
-
-export function getUpgradeTimesBought(upgrade: string) {
-    return player.upgradesBought[upgrade]
+    location.reload();
 }
 
 export async function saveExport(): Promise<void> {
@@ -114,3 +109,9 @@ export function saveImportConfirm(): void {
     localStorage.setItem(gameId, savefile);
     location.reload();
 };
+
+export default player;
+
+export function getUpgradeTimesBought(upgrade: string) {
+    return player.upgradesBought[upgrade]
+}
