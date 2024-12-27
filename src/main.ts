@@ -29,6 +29,7 @@ element("bulkdoubleaone").onclick = () => { bulkClickDoubler(player.bulkLevel, t
 
 let autoclickInterval: number | undefined = undefined;
 let bulkAutoclickInterval: number | undefined = undefined;
+let autobulkInterval: number | undefined = undefined;
 
 if(getUpgradeTimesBought("autoclick").gt(0)) {
     clearInterval(autoclickInterval);
@@ -37,6 +38,26 @@ if(getUpgradeTimesBought("autoclick").gt(0)) {
 if(getUpgradeTimesBought("bulkautoclick").gt(0)) {
     clearInterval(bulkAutoclickInterval);
     bulkAutoclickInterval = setInterval(() => { bulkClickDoubler(player.bulkLevel, true) }, player.bulkAutoclickKey)
+}
+if(getUpgradeTimesBought("autobulk").gt(0)) {
+    clearInterval(autobulkInterval);
+    if(getUpgradeTimesBought("autobulk").lte(10)) {
+        const t = 1000 / getUpgradeTimesBought("autobulk").toNumber()
+        autobulkInterval = setInterval(() => { 
+            player.bulkLevel = player.bulkLevel.plus(1) 
+            player.upgradesBought.bulkup = player.upgradesBought.bulkup.plus(1)
+            upgrades.bulkup.costFormula()
+            updateCostDisp(upgrades.bulkup.costDiv, upgrades.bulkup.cost, upgrades.bulkup.currency, "div")
+        }, t)
+    } else {
+        const times = getUpgradeTimesBought("autobulk").minus(9)
+        autobulkInterval = setInterval(() => { 
+            player.bulkLevel = player.bulkLevel.plus(times) 
+            player.upgradesBought.bulkup = player.upgradesBought.bulkup.plus(times)
+            upgrades.bulkup.costFormula()
+            updateCostDisp(upgrades.bulkup.costDiv, upgrades.bulkup.cost, upgrades.bulkup.currency, "div")
+        }, 100)
+    }
 }
 
 //game loop
@@ -50,6 +71,27 @@ setInterval(() => {
         clearInterval(bulkAutoclickInterval);
         bulkAutoclickInterval = setInterval(() => { bulkClickDoubler(player.bulkLevel, true) }, player.autoclickKey)
         player.bulkAutoclickFlag = false
+    }
+    if(getUpgradeTimesBought("autobulk").gt(0) && player.autobulkFlag) {
+        clearInterval(autobulkInterval);
+        if(getUpgradeTimesBought("autobulk").lte(10)) {
+            const t = 1000 / getUpgradeTimesBought("autobulk").toNumber()
+            autobulkInterval = setInterval(() => { 
+                player.bulkLevel = player.bulkLevel.plus(1) 
+                player.upgradesBought.bulkup = player.upgradesBought.bulkup.plus(1)
+                upgrades.bulkup.costFormula()
+                updateCostDisp(upgrades.bulkup.costDiv, upgrades.bulkup.cost, upgrades.bulkup.currency, "div")
+            }, t)
+        } else {
+            const times = getUpgradeTimesBought("autobulk").minus(9)
+            autobulkInterval = setInterval(() => { 
+                player.bulkLevel = player.bulkLevel.plus(times) 
+                player.upgradesBought.bulkup = player.upgradesBought.bulkup.plus(times)
+                upgrades.bulkup.costFormula()
+                updateCostDisp(upgrades.bulkup.costDiv, upgrades.bulkup.cost, upgrades.bulkup.currency, "div")
+            }, 100)
+        }
+        player.autobulkFlag = false
     }
 
     upgrades.convertaone.costFormula()
@@ -70,7 +112,7 @@ function updateTexts() {
 
     element("doubleaone").innerHTML = `${format(player.doubleaonemult)}x α<sub>1</sub>`
     element("bulkdoubleaone").innerHTML = `${format(player.doubleaonemult)}x α<sub>1</sub> (x${format(new ExpantaNumX.pow(10, player.bulkLevel))})`
-    element("bulkconvertaone").innerHTML = `Convert α<sub>2</sub> to α<sub>1</sub> (x${format(new ExpantaNumX.pow(10, player.bulkLevel))})`
+    element("bulkconvertaone").innerHTML = `Convert α<sub>1</sub> to α<sub>2</sub> (x${format(new ExpantaNumX.pow(10, player.bulkLevel))})`
 }
 
 function updateButtons() {

@@ -3,7 +3,7 @@ import element from "./dom";
 import { ExpantaNumX, ExpantaNumXType } from "./ExpantaNumX";
 import { format } from "./util"
 
-export type Currency = "alphaone" | "alphatwo"
+export type Currency = "alphaone" | "alphatwo" | "alphathree" | "alphafour";
 
 export interface Upgrade {
     buttonDiv: string;
@@ -157,6 +157,23 @@ export const upgrades: Upgrades = {
         },
         functionfirst: true
     },
+    autobulk: {
+        buttonDiv: "autobulk",
+        costDiv: "autobulkcost",
+        cost: new ExpantaNumX('1'),
+        costType: "sub",
+        costFormula: function () {
+            if(player.upgradesBought.autobulk.lte(10)) {
+                upgrades.autobulk.cost = new ExpantaNumX('1')
+            } else {
+                upgrades.autobulk.cost = ExpantaNumX.times(3^9, ExpantaNumX.pow(3, player.upgradesBought.autobulk.minus(10).times(10)))
+            }
+        },
+        currency: "alphathree",
+        upgrFunction: function () {
+            player.autobulkFlag = true
+        }
+    },
 }
 
 export function updateCostDisp(costDiv: string, cost: ExpantaNumXType, curr: Currency, d: "sub" | "div" = "sub") {
@@ -168,6 +185,12 @@ export function updateCostDisp(costDiv: string, cost: ExpantaNumXType, curr: Cur
             break;
         case "alphatwo":
             currencyrender = 'α<sub>2</sub>'
+            break;
+        case "alphathree":
+            currencyrender = 'α<sub>3</sub>'
+            break;
+        case "alphafour":
+            currencyrender = 'α<sub>4</sub>'
             break;
     }
     if(d === "div") costText = "DivCost:"
@@ -246,3 +269,5 @@ element("bulkautoclick").onclick = () => {
 };
 element("convertatwo").onclick = () => {
     buyUpgrade(upgrades.convertatwo)};
+element("autobulk").onclick = () => {
+    buyUpgrade(upgrades.autobulk)};
