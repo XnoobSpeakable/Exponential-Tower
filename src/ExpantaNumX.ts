@@ -1310,9 +1310,6 @@ SOFTWARE.
     var numDigits=Math.ceil(Math.log10(Math.abs(value)));
     if (numDigits<100) numDigits=0; //A hack-y solution to https://github.com/Naruyoko/ExpantaNum.js/issues/22
     var rounded=Math.round(value*Math.pow(10,len-numDigits))*Math.pow(10,numDigits-len);
-    console.log(value + " dp value")
-    console.log(places + " dp places")
-    console.log(parseFloat(rounded.toFixed(Math.max(len-numDigits,0))) + " dp OUT")
     return parseFloat(rounded.toFixed(Math.max(len-numDigits,0)));
   };
   /**
@@ -1321,8 +1318,6 @@ SOFTWARE.
    * If extra is set, it will be added to the number of decimal places needed to go up one "layer", that is go from regular numbers to ones with scientific notation ,the nfrom one e to two e, etc.
  */
   P.toStringWithDecimalPlaces=function (places,applyToOpNums, extra = 0){
-    console.log(places + " TOSTR places")
-    console.log(applyToOpNums + " TOSTR applyToOpNums")
     if (this.sign==-1) return "-"+this.abs();
     if (isNaN(this.array[0][1])) return "NaN";
     if (!isFinite(this.array[0][1])) return "Infinity";
@@ -1355,17 +1350,13 @@ SOFTWARE.
     if (k>m){
       k=Math.log10(k);
       ++l;
-      console.log("k>m triggered")
     }
-    console.log(k + " TOSTR k")
-    console.log(l + " TOSTR l")
     if (b) { s+=decimalPlaces(b,places);}
-    else if (!l) { s+=String(decimalPlaces(k,places)); console.log("caseA")}
-    else if (l<3) { s+="e".repeat(l-1)+decimalPlaces(Math.pow(10,k-Math.floor(k)),places)+"e"+decimalPlaces(Math.floor(k),places); console.log("caseB")}
-    else if (l<8) { s+="e".repeat(l)+decimalPlaces(k,places); console.log("caseC")}
-    else if (applyToOpNums) { s+="(10^)^"+decimalPlaces(l,places)+" "+decimalPlaces(k,places); console.log("caseD")}
-    else { s+="(10^)^"+l+" "+decimalPlaces(k,places); console.log("caseE") }
-    console.log(s + " TOSTR OUT s")
+    else if (!l) s+=String(decimalPlaces(k,places))
+    else if (l<3) s+="e".repeat(l-1)+decimalPlaces(Math.pow(10,k-Math.floor(k)),places)+"e"+decimalPlaces(Math.floor(k),places)
+    else if (l<8) s+="e".repeat(l)+decimalPlaces(k,places)
+    else if (applyToOpNums) s+="(10^)^"+decimalPlaces(l,places)+" "+decimalPlaces(k,places);
+    else s+="(10^)^"+l+" "+decimalPlaces(k,places);
     return s;
   };
   //these are from break_eternity.js as well
