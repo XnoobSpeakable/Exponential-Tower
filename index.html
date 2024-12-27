@@ -4,12 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Exponential Tower</title>
-    <script type="module" crossorigin src="./assets/index-DaT17QSQ.js"></script>
+    <script type="module" crossorigin src="./assets/index-Hr-Amo55.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-ttoOqq_e.css">
   </head>
   <body>
 
     <div id="overview"></div>
+
+    <div class="floor bordered centered">
+      <div class="centered">Floor 4</div>
+      <div id="alphafourtext" class="centered">You have 0 α<sub>4</sub></div>
+  
+    </div>
+
+    <div class="floor bordered centered">
+      <div class="centered">Floor 3</div>
+      <div id="alphathreetext" class="centered">You have 0 α<sub>3</sub></div>
+  
+    </div>
 
     <div class="floor bordered centered">
       <div class="centered">Floor 2</div>
@@ -28,6 +40,10 @@
         <div>
           <button id="upconversion">Reduce α<sub>2</sub> cost</button>
           <p id="upconversioncost">Cost: 22</p>
+        </div>&nbsp;
+        <div>
+          <button id="convertatwo">Convert α<sub>2</sub> to α<sub>3</sub></button>
+          <p id="convertatwocost">Cost: 1e100</p>
         </div>
       </div>
     </div>
@@ -71,7 +87,19 @@
       </div>
     </div>
 
-    <div id="version">α1.0.2</div>
+    <div id="version">α2.0.0</div>
     <button id="wipesave">wipesave</button>
+    <button id="cheat" style="display:none;">cheat</button>
+    <button id="export">
+      Export Save
+    </button>
+    <button id="import">
+      Import Save
+    </button>
+    <textarea id="importareaid" name="importarea" rows="4" cols="50"
+      style="display: none; text-align: left"></textarea>
+    <button id="saveimportconfirm" style="display: none">
+      Import Save
+    </button>
   </body>
 </html>
