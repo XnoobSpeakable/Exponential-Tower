@@ -8,11 +8,17 @@ const player: Player = {
         upaonemult: new ExpantaNumX('0'),
         upaonepower: new ExpantaNumX('0'),
         autoclick: new ExpantaNumX('0'),
-        upconversion: new ExpantaNumX('0')
+        upconversion: new ExpantaNumX('0'),
+        bulkup: new ExpantaNumX('0'),
+        bulkautoclick: new ExpantaNumX('0'),
     },
     doubleaonemult: new ExpantaNumX('2'),
     autoclickKey: 0,
-    autoclickFlag: false
+    autoclickFlag: false,
+    bulkLevel: new ExpantaNumX('0'),
+    bulkAutoclickKey: 0,
+    bulkAutoclickFlag: false,
+    conversions: new ExpantaNumX('0')
 };
 
 export interface Player {
@@ -23,6 +29,10 @@ export interface Player {
     },
     doubleaonemult: ExpantaNumXType;
     autoclickKey: number;
+    bulkLevel: ExpantaNumXType;
+    bulkAutoclickKey: number;
+    bulkAutoclickFlag: boolean;
+    conversions: ExpantaNumXType;
     [key: string]: ExpantaNumXType | { [key: string]: ExpantaNumXType } | number | boolean;
 }
 
