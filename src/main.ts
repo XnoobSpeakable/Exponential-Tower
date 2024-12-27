@@ -15,7 +15,7 @@ function toBottom()
 window.onload=toBottom;
 
 function clickDoubler() {
-    player.alphaone = player.alphaone.times(player.doubleaonemult)
+    player.alphaone = player.alphaone.times(player.doubleaonemult).times(1000)
 }
 function bulkClickDoubler(bulk: ExpantaNumXType, powered: boolean) {
     if(powered) {
