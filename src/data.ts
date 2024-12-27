@@ -11,6 +11,7 @@ const player: Player = {
         upconversion: new ExpantaNumX('0'),
         bulkup: new ExpantaNumX('0'),
         bulkautoclick: new ExpantaNumX('0'),
+        bulkconvertaone: new ExpantaNumX('0')
     },
     doubleaonemult: new ExpantaNumX('2'),
     autoclickKey: 0,
