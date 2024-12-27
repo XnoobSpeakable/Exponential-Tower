@@ -111,6 +111,6 @@ export function saveImport(): void {
 export function saveImportConfirm(): void {
     const saveEl = element("importareaid") as HTMLInputElement;
     const savefile = saveEl.value; // really should check for an empty value here
-    localStorage.setItem(location.pathname, savefile);
+    localStorage.setItem(gameId, savefile);
     location.reload();
 };
