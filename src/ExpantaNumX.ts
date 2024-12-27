@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* ExpantaNum by Naruyoko, modified by XnoobSpeakable (with help from jakub791)
 ExpantaNum's license:
 MIT License
@@ -24,6 +23,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+//temporary measures to make ESLint and TypeScript not complain. I haven't made the library entirely TS-compliant yet.
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-useless-escape */
 /* eslint-disable prefer-rest-params */
