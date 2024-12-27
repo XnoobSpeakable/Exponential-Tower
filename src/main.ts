@@ -48,7 +48,7 @@ setInterval(() => {
     }
     if(getUpgradeTimesBought("bulkautoclick").gt(0) && player.bulkAutoclickFlag) {
         clearInterval(bulkAutoclickInterval);
-        bulkAutoclickInterval = setInterval(() => { clickDoubler() }, player.autoclickKey)
+        bulkAutoclickInterval = setInterval(() => { bulkClickDoubler(player.bulkLevel, true) }, player.autoclickKey)
         player.bulkAutoclickFlag = false
     }
 
@@ -61,8 +61,12 @@ setInterval(() => {
 function updateTexts() {
     element("alphaonetext").innerHTML = `You have ${format(player.alphaone)} α<sub>1</sub>`
     element("alphatwotext").innerHTML = `You have ${format(player.alphatwo)} α<sub>2</sub>`
+    element("alphathreetext").innerHTML = `You have ${format(player.alphathree)} α<sub>3</sub>`
+    element("alphafourtext").innerHTML = `You have ${format(player.alphafour)} α<sub>4</sub>`
     element("overview").innerHTML = `α<sub>1</sub>: ${format(player.alphaone)}<br>
-        α<sub>2</sub>: ${format(player.alphatwo)}<br> `
+        α<sub>2</sub>: ${format(player.alphatwo)}<br> 
+        α<sub>3</sub>: ${format(player.alphathree)}<br>
+        α<sub>4</sub>: ${format(player.alphafour)}<br>`
 
     element("doubleaone").innerHTML = `${format(player.doubleaonemult)}x α<sub>1</sub>`
     element("bulkdoubleaone").innerHTML = `${format(player.doubleaonemult)}x α<sub>1</sub> (x${format(new ExpantaNumX.pow(10, player.bulkLevel))})`
@@ -70,6 +74,15 @@ function updateTexts() {
 }
 
 function updateButtons() {
+    if(!getUpgradeTimesBought("bulkup").gt(0)) {
+        element("bulkdoubleaone").setAttribute("disabled", "disabled");
+        element("bulkconvertaone").setAttribute("disabled", "disabled");
+        element("bulkautoclick").setAttribute("disabled", "disabled");
+    } else {
+        element("bulkdoubleaone").removeAttribute("disabled");
+        element("bulkconvertaone").removeAttribute("disabled");
+        element("bulkautoclick").removeAttribute("disabled");
+    }
     for (const upgrade in upgrades) {
         const upgradeObj = upgrades[upgrade];
         const canBuy = player[upgradeObj.currency].gte(upgradeObj.cost)
@@ -78,11 +91,6 @@ function updateButtons() {
         } else {
             element(upgradeObj.buttonDiv).setAttribute("disabled", "disabled")
         }
-    }
-    if(!getUpgradeTimesBought("bulkup").gt(0)) {
-        element("bulkdoubleaone").setAttribute("disabled", "disabled");
-        element("bulkconvertaone").setAttribute("disabled", "disabled");
-        element("bulkautoclick").setAttribute("disabled", "disabled");
     }
 }
 

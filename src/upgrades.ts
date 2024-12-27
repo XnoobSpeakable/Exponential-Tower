@@ -142,6 +142,21 @@ export const upgrades: Upgrades = {
         },
         functionfirst: true
     },
+    convertatwo: {
+        buttonDiv: "convertatwo",
+        costDiv: "convertatwocost",
+        cost: new ExpantaNumX('1e100'),
+        costType: "div",
+        costFormula: function () {
+            upgrades.convertatwo.cost = ExpantaNumX.pow(1e100, player.conversionsTwo.plus(1))
+        },
+        currency: "alphatwo",
+        upgrFunction: function () {
+            player.alphathree = player.alphathree.plus(1)
+            player.conversionsTwo = player.conversionsTwo.plus(1)
+        },
+        functionfirst: true
+    },
 }
 
 export function updateCostDisp(costDiv: string, cost: ExpantaNumXType, curr: Currency, d: "sub" | "div" = "sub") {
@@ -229,3 +244,5 @@ element("bulkconvertaone").onclick = () => {
 element("bulkautoclick").onclick = () => {
     buyUpgrade(upgrades.bulkautoclick)
 };
+element("convertatwo").onclick = () => {
+    buyUpgrade(upgrades.convertatwo)};

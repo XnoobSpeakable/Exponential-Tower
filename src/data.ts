@@ -3,7 +3,9 @@ import {ExpantaNumX, ExpantaNumXType} from "./ExpantaNumX.ts"
 
 const player: Player = {
     alphaone: new ExpantaNumX('1'),
-    alphatwo: new ExpantaNumX('0.00000000001'),
+    alphatwo: new ExpantaNumX('1e-9'),
+    alphathree: new ExpantaNumX('1e-9'),
+    alphafour: new ExpantaNumX('1e-9'),
     upgradesBought: {
         convertaone: new ExpantaNumX('0'),
         upaonemult: new ExpantaNumX('0'),
@@ -12,7 +14,8 @@ const player: Player = {
         upconversion: new ExpantaNumX('0'),
         bulkup: new ExpantaNumX('0'),
         bulkautoclick: new ExpantaNumX('0'),
-        bulkconvertaone: new ExpantaNumX('0')
+        bulkconvertaone: new ExpantaNumX('0'),
+        convertatwo: new ExpantaNumX('0')
     },
     doubleaonemult: new ExpantaNumX('2'),
     autoclickKey: 0,
@@ -20,12 +23,15 @@ const player: Player = {
     bulkLevel: new ExpantaNumX('0'),
     bulkAutoclickKey: 0,
     bulkAutoclickFlag: false,
-    conversions: new ExpantaNumX('0')
+    conversions: new ExpantaNumX('0'),
+    conversionsTwo: new ExpantaNumX('0')
 };
 
 export interface Player {
     alphaone: ExpantaNumXType;
     alphatwo: ExpantaNumXType;
+    alphathree: ExpantaNumXType;
+    alphafour: ExpantaNumXType;
     upgradesBought: {
         [key: string]: ExpantaNumXType;
     },
@@ -35,6 +41,7 @@ export interface Player {
     bulkAutoclickKey: number;
     bulkAutoclickFlag: boolean;
     conversions: ExpantaNumXType;
+    conversionsTwo: ExpantaNumXType;
     [key: string]: ExpantaNumXType | { [key: string]: ExpantaNumXType } | number | boolean;
 }
 
