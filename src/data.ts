@@ -1,3 +1,4 @@
+import element from "./dom.ts";
 import {ExpantaNumX, ExpantaNumXType} from "./ExpantaNumX.ts"
 
 const player: Player = {
@@ -64,8 +65,10 @@ export function deepMerge<T extends object>(source: T, data: T): void {
     }
 }
 
-export function save(): void {
-    localStorage.setItem(gameId, JSON.stringify(player));
+export function save(): string {
+    const savefile = JSON.stringify(player);
+    localStorage.setItem(gameId, savefile);
+    return savefile;
 }
 
 export function load(): void {
@@ -94,3 +97,20 @@ export default player;
 export function getUpgradeTimesBought(upgrade: string) {
     return player.upgradesBought[upgrade]
 }
+
+export async function saveExport(): Promise<void> {
+    await navigator.clipboard.writeText(save());
+    alert("Copied to clipboard!");
+};
+
+export function saveImport(): void {
+    element("importareaid").style.display = "block";
+    element("saveimportconfirm").style.display = "block";
+};
+
+export function saveImportConfirm(): void {
+    const saveEl = element("importareaid") as HTMLInputElement;
+    const savefile = saveEl.value; // really should check for an empty value here
+    localStorage.setItem(location.pathname, savefile);
+    location.reload();
+};

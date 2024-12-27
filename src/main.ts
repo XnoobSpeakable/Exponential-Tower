@@ -1,5 +1,5 @@
 import './style.css'
-import player, { getUpgradeTimesBought, load, resetGame, save } from './data';
+import player, { getUpgradeTimesBought, load, resetGame, save, saveExport, saveImport, saveImportConfirm } from './data';
 import element from './dom';
 import { format } from './util';
 import { loadCosts, updateCostDisp, upgrades } from './upgrades';
@@ -98,3 +98,16 @@ setInterval(() => {
 }, 4000);
 
 element("wipesave").onclick = () => {resetGame()};
+
+
+element("export").onclick = () => { saveExport()};
+element("import").onclick = () => { saveImport()};
+element("saveimportconfirm").onclick = () => { saveImportConfirm()};
+
+if (import.meta.env.DEV) {
+    element("cheat").style.display = "inline";
+    function cheat() {
+        player.alphaone = player.alphaone.times(ExpantaNumX.pow(10, 1000))
+    }
+    element("cheat").onclick = () => { cheat()};
+}
