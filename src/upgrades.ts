@@ -19,19 +19,18 @@ export interface Upgrade {
 export interface Upgrades {
     [key: string]: Upgrade;
 }
-
 export const upgrades: Upgrades = {
     convertaone: {
         buttonDiv: "convertaone",
         costDiv: "convertaonecost",
         cost: new ExpantaNumX('1e15'),
         costType: "div",
-        costFormula: () => {
+        costFormula() {
             const x = ExpantaNumX.pow(1e15, ExpantaNumX.div(1, player.upgradesBought.upconversion.div(10).plus(1)))
             upgrades.convertaone.cost = ExpantaNumX.pow(x, player.conversions.plus(1))
         },
         currency: "alphaone",
-        upgrFunction: () => {
+        upgrFunction() {
             player.alphatwo = player.alphatwo.plus(1)
             player.conversions = player.conversions.plus(1)
         },
@@ -42,11 +41,11 @@ export const upgrades: Upgrades = {
         costDiv: "upaonemultcost",
         cost: new ExpantaNumX('1'),
         costType: "sub",
-        costFormula: () => {
+        costFormula() {
             upgrades.upaonemult.cost = player.upgradesBought.upaonemult.plus(1)
         },
         currency: "alphatwo",
-        upgrFunction: () => {
+        upgrFunction() {
             player.doubleaonemult = player.doubleaonemult.plus(1)
         }
     },
@@ -55,11 +54,11 @@ export const upgrades: Upgrades = {
         costDiv: "upaonepowercost",
         cost: new ExpantaNumX('1'),
         costType: "sub",
-        costFormula: () => {
+        costFormula() {
             upgrades.upaonepower.cost = player.upgradesBought.upaonepower.plus(1)
         },
         currency: "alphatwo",
-        upgrFunction: () => {
+        upgrFunction() {
             player.doubleaonemult = player.doubleaonemult.pow(1.1)
         }
     },
@@ -68,14 +67,14 @@ export const upgrades: Upgrades = {
         costDiv: "autoclickcost",
         cost: new ExpantaNumX('1e50'),
         costType: "sub",
-        costFormula: () => {
+        costFormula() {
             upgrades.autoclick.cost = ExpantaNumX.pow(1e50, player.upgradesBought.autoclick.plus(1))
             if(player.upgradesBought.autoclick.gt(25)) {
                 upgrades.autoclick.cost = new ExpantaNumX("Infinity")
             }
         },
         currency: "alphaone",
-        upgrFunction: () => {
+        upgrFunction() {
             if(player.upgradesBought.autoclick.lte(25)) {
                 player.autoclickKey = 1000 / player.upgradesBought.autoclick.toNumber()
             }
@@ -87,11 +86,11 @@ export const upgrades: Upgrades = {
         costDiv: "upconversioncost",
         cost: new ExpantaNumX('22'),
         costType: "sub",
-        costFormula: () => {
+        costFormula() {
             upgrades.upconversion.cost = ExpantaNumX.pow(3, player.upgradesBought.upconversion).times(22)
         },
         currency: "alphatwo",
-        upgrFunction: () => {
+        upgrFunction() {
             upgrades.convertaone.costFormula()
         }
     },
@@ -100,11 +99,11 @@ export const upgrades: Upgrades = {
         costDiv: "bulkupcost",
         cost: new ExpantaNumX('1e1000'),
         costType: "div",
-        costFormula: () => {
+        costFormula() {
             upgrades.bulkup.cost = ExpantaNumX.pow(new ExpantaNumX("1e1000"), ExpantaNumX.pow(10, player.upgradesBought.bulkup))
         },
         currency: "alphaone",
-        upgrFunction: () => {
+        upgrFunction() {
             player.bulkLevel = player.bulkLevel.plus(1)
         }
     },
@@ -113,14 +112,14 @@ export const upgrades: Upgrades = {
         costDiv: "bulkautoclickcost",
         cost: new ExpantaNumX('1e1000'),
         costType: "div",
-        costFormula: () => {
+        costFormula() {
             upgrades.bulkautoclick.cost = ExpantaNumX.pow(new ExpantaNumX("1e1000"), player.upgradesBought.bulkautoclick.plus(1))
             if(player.upgradesBought.bulkautoclick.gt(10)) {
                 upgrades.bulkautoclick.cost = new ExpantaNumX("Infinity")
             }
         },
         currency: "alphaone",
-        upgrFunction: () => {
+        upgrFunction() {
             if(player.upgradesBought.bulkautoclick.lte(10)) {
                 player.bulkAutoclickKey = 1000 / player.upgradesBought.bulkautoclick.toNumber()
             }
@@ -132,12 +131,12 @@ export const upgrades: Upgrades = {
         costDiv: "bulkconvertaonecost",
         cost: new ExpantaNumX('1e15'),
         costType: "div",
-        costFormula: () => {
+        costFormula() {
             const x = ExpantaNumX.pow(1e15, ExpantaNumX.div(1, player.upgradesBought.upconversion.div(10).plus(1)))
             upgrades.bulkconvertaone.cost = ExpantaNumX.pow(x, player.conversions.plus(new ExpantaNumX.pow(10, player.bulkLevel)))
         },
         currency: "alphaone",
-        upgrFunction: () => {
+        upgrFunction() {
             player.alphatwo = player.alphatwo.plus(new ExpantaNumX.pow(10, player.bulkLevel))
             player.conversions = player.conversions.plus(new ExpantaNumX.pow(10, player.bulkLevel))
         },
