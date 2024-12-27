@@ -26,7 +26,8 @@ export const upgrades: Upgrades = {
         cost: new ExpantaNumX('1e15'),
         costType: "div",
         costFormula: () => {
-            upgrades.convertaone.cost = ExpantaNumX.pow(1e15, player.upgradesBought.convertaone.plus(1))
+            const x = ExpantaNumX.pow(1e15, ExpantaNumX.div(1, player.upgradesBought.upconversion.div(10).plus(1)))
+            upgrades.convertaone.cost = ExpantaNumX.pow(x, player.upgradesBought.convertaone.plus(1))
         },
         currency: "alphaone",
         upgrFunction: () => {
@@ -76,6 +77,19 @@ export const upgrades: Upgrades = {
                 player.autoclickKey = 1000 / player.upgradesBought.autoclick.toNumber()
             }
             player.autoclickFlag = true
+        }
+    },
+    upconversion: {
+        buttonDiv: "upconversion",
+        costDiv: "upconversioncost",
+        cost: new ExpantaNumX('22'),
+        costType: "sub",
+        costFormula: () => {
+            upgrades.upconversion.cost = ExpantaNumX.pow(3, player.upgradesBought.upconversion).times(22)
+        },
+        currency: "alphatwo",
+        upgrFunction: () => {
+            upgrades.convertaone.costFormula()
         }
     },
 }
@@ -148,4 +162,7 @@ element("upaonepower").onclick = () => {
 };
 element("autoclick").onclick = () => {
     buyUpgrade(upgrades.autoclick)
+};
+element("upconversion").onclick = () => {
+    buyUpgrade(upgrades.upconversion)
 };

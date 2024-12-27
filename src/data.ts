@@ -7,7 +7,8 @@ const player: Player = {
         convertaone: new ExpantaNumX('0'),
         upaonemult: new ExpantaNumX('0'),
         upaonepower: new ExpantaNumX('0'),
-        autoclick: new ExpantaNumX('0')
+        autoclick: new ExpantaNumX('0'),
+        upconversion: new ExpantaNumX('0')
     },
     doubleaonemult: new ExpantaNumX('2'),
     autoclickKey: 0,
