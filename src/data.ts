@@ -16,7 +16,8 @@ const player: Player = {
         bulkautoclick: new ExpantaNumX('0'),
         bulkconvertaone: new ExpantaNumX('0'),
         convertatwo: new ExpantaNumX('0'),
-        autobulk: new ExpantaNumX('0')
+        autobulk: new ExpantaNumX('0'),
+        fixatwo: new ExpantaNumX('0'),
     },
     doubleaonemult: new ExpantaNumX('2'),
     autoclickKey: 0,
@@ -26,7 +27,8 @@ const player: Player = {
     bulkAutoclickFlag: false,
     conversions: new ExpantaNumX('0'),
     conversionsTwo: new ExpantaNumX('0'),
-    autobulkFlag: false
+    autobulkFlag: false,
+    fixalphatwo: false,
 };
 
 export interface Player {
@@ -45,6 +47,7 @@ export interface Player {
     conversions: ExpantaNumXType;
     conversionsTwo: ExpantaNumXType;
     autobulkFlag: boolean;
+    fixalphatwo: boolean;
     [key: string]: ExpantaNumXType | { [key: string]: ExpantaNumXType } | number | boolean;
 }
 

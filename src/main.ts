@@ -33,7 +33,7 @@ let autobulkInterval: number | undefined = undefined;
 
 if(getUpgradeTimesBought("autoclick").gt(0)) {
     clearInterval(autoclickInterval);
-    autoclickInterval = setInterval(() => { bulkClickDoubler(player.bulkLevel, true) }, player.autoclickKey)
+    autoclickInterval = setInterval(() => { clickDoubler() }, player.autoclickKey)
 }
 if(getUpgradeTimesBought("bulkautoclick").gt(0)) {
     clearInterval(bulkAutoclickInterval);
@@ -92,6 +92,10 @@ setInterval(() => {
             }, 100)
         }
         player.autobulkFlag = false
+    }
+
+    if(player.fixalphatwo) {
+        player.alphatwo = player.alphaone.logBase(ExpantaNumX.minus(10.1, player.upgradesBought.fixatwo.times(0.1)))
     }
 
     upgrades.convertaone.costFormula()

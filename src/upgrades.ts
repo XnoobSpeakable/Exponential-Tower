@@ -174,6 +174,23 @@ export const upgrades: Upgrades = {
             player.autobulkFlag = true
         }
     },
+    fixatwo: {
+        buttonDiv: "fixatwo",
+        costDiv: "fixatwocost",
+        cost: new ExpantaNumX('30'),
+        costType: "sub",
+        costFormula: function () {
+            if(player.upgradesBought.fixatwo.gt(0)) {
+                upgrades.fixatwo.cost = new ExpantaNumX('Infinity')
+            } else {
+                upgrades.fixatwo.cost = new ExpantaNumX('30')
+            }
+        },
+        currency: "alphathree",
+        upgrFunction: function () {
+            player.fixalphatwo = true
+        }
+    }
 }
 
 export function updateCostDisp(costDiv: string, cost: ExpantaNumXType, curr: Currency, d: "sub" | "div" = "sub") {
@@ -245,29 +262,14 @@ export function loadCosts() {
     }
 }
 
-element("convertaone").onclick = () => {
-    buyUpgrade(upgrades.convertaone)};
-element("upaonemult").onclick = () => {
-    buyUpgrade(upgrades.upaonemult)
-};
-element("upaonepower").onclick = () => {
-    buyUpgrade(upgrades.upaonepower)
-};
-element("autoclick").onclick = () => {
-    buyUpgrade(upgrades.autoclick)
-};
-element("upconversion").onclick = () => {
-    buyUpgrade(upgrades.upconversion)
-};
-element("bulkup").onclick = () => {
-    buyUpgrade(upgrades.bulkup)
-};
-element("bulkconvertaone").onclick = () => {
-    buyUpgrade(upgrades.bulkconvertaone)};
-element("bulkautoclick").onclick = () => {
-    buyUpgrade(upgrades.bulkautoclick)
-};
-element("convertatwo").onclick = () => {
-    buyUpgrade(upgrades.convertatwo)};
-element("autobulk").onclick = () => {
-    buyUpgrade(upgrades.autobulk)};
+element("convertaone").onclick = () => buyUpgrade(upgrades.convertaone);
+element("upaonemult").onclick = () => buyUpgrade(upgrades.upaonemult);
+element("upaonepower").onclick = () => buyUpgrade(upgrades.upaonepower);
+element("autoclick").onclick = () => buyUpgrade(upgrades.autoclick);
+element("upconversion").onclick = () => buyUpgrade(upgrades.upconversion);
+element("bulkup").onclick = () => buyUpgrade(upgrades.bulkup);
+element("bulkconvertaone").onclick = () => buyUpgrade(upgrades.bulkconvertaone);
+element("bulkautoclick").onclick = () => buyUpgrade(upgrades.bulkautoclick);
+element("convertatwo").onclick = () => buyUpgrade(upgrades.convertatwo);
+element("autobulk").onclick = () => buyUpgrade(upgrades.autobulk);
+element("fixatwo").onclick = () => buyUpgrade(upgrades.fixatwo);
