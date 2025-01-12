@@ -9,24 +9,25 @@
     <script type="module" defer src="src/main.ts"></script>
 
     <div id="overview"></div>
+    <div id="overview2"></div>
 
-    <div class="floor bordered centered">
+    <div class="floor bordered centered pad20">
       <div class="centered">Floor 4</div>
-      <div id="alphafourtext" class="centered">You have 0 α<sub>4</sub></div>
-      <div class="centered">Floor 4 coming in b1.2.0!</div>
+      <div id="alphafourtext" class="centered pad10">You have 0 α<sub>4</sub></div>
+      <div class="centered pad10">Floor 4 coming in b1.2.0!</div>
     </div>
 
-    <div class="floor bordered centered">
+    <div class="floor bordered centered pad20">
       <div class="centered">Floor 3</div>
-      <div id="alphathreetext" class="centered">You have 0 α<sub>3</sub></div>
+      <div id="alphathreetext" class="centered pad10">You have 0 α<sub>3</sub></div>
       <div class="buttonrow">
         <div>
           <button id="autobulk">Automatically increase bulk level</button>
-          <p id="autobulkcost">Cost: 1</p>
+          <p id="autobulkcost" class="cost">Cost: 1</p>
         </div>&nbsp;
         <div>
           <button id="fixatwo">Fix α<sub>2</sub> = log_10(α<sub>1</sub>)</button>
-          <p id="fixatwocost">Cost: 1</p>
+          <p id="fixatwocost" class="cost">Cost: 1</p>
         </div>
       </div>
       <div class="buttonrow" style="display:none;">
@@ -36,39 +37,39 @@
         </div>&nbsp;
         <div>
           <button id="fixup">Lower fix upgrade's log base by 0.1</button>
-          <p id="fixupcost">Cost: 1</p>
+          <p id="fixupcost" class="cost">Cost: 1</p>
         </div>
       </div>
     </div>
 
-    <div class="floor bordered centered">
+    <div class="floor bordered centered pad20">
       <div class="centered">Floor 2</div>
-      <div id="alphatwotext" class="centered">You have 0 α<sub>2</sub></div>
+      <div id="alphatwotext" class="centered pad10">You have 0 α<sub>2</sub></div>
       <div class="buttonrow">
         <div>
           <button id="upaonemult">Increase α<sub>1</sub> multiplier power (+1x)</button>
-          <p id="upaonemultcost">Cost: 1</p>
+          <p id="upaonemultcost" class="cost">Cost: 1</p>
         </div>&nbsp;
         <div>
           <button id="upaonepower">Raise α<sub>1</sub> multiplier to a power (+ ^1.1)</button>
-          <p id="upaonepowercost">Cost: 1</p>
+          <p id="upaonepowercost" class="cost">Cost: 1</p>
         </div>
       </div>
       <div class="buttonrow">
         <div>
           <button id="upconversion">Reduce α<sub>2</sub> cost</button>
-          <p id="upconversioncost">Cost: 22</p>
+          <p id="upconversioncost" class="cost">Cost: 22</p>
         </div>&nbsp;
         <div>
           <button id="convertatwo">Convert α<sub>2</sub> to α<sub>3</sub></button>
-          <p id="convertatwocost">Cost: 1e100</p>
+          <p id="convertatwocost" class="cost">Cost: 1e100</p>
         </div>
       </div>
     </div>
 
-    <div class="floor bordered centered">
+    <div class="floor bordered centered pad20">
       <div class="centered">Floor 1</div>
-      <div id="alphaonetext" class="centered">You have 0 α<sub>1</sub></div>
+      <div id="alphaonetext" class="centered pad10">You have 0 α<sub>1</sub></div>
       <div class="buttonrow">
         <div>
           <button id="doubleaone">Double α<sub>1</sub></button>
@@ -76,17 +77,17 @@
         </div>&nbsp;
         <div>
           <button id="convertaone">Convert α<sub>1</sub> to α<sub>2</sub></button>
-          <p id="convertaonecost">Cost: 1e15</p>
+          <p id="convertaonecost" class="cost">Cost: 1e15</p>
         </div>&nbsp;
         <div>
           <button id="autoclick">Unlock or upgrade autoclicker</button>
-          <p id="autoclickcost">Cost: 1e50</p>
+          <p id="autoclickcost" class="cost">Cost: 1e50</p>
         </div>
       </div>
       <div class="buttonrow">
         <div>
           <button id="bulkup">Unlock/upgrade Bulk (10x)</button>
-          <p id="bulkupcost">DivCost: 1e1000</p>
+          <p id="bulkupcost" class="cost">DivCost: 1e1000</p>
         </div>
       </div>
       <div class="buttonrow">
@@ -96,11 +97,11 @@
         </div>&nbsp;
         <div>
           <button id="bulkconvertaone">Bulk convert α<sub>1</sub> to α<sub>2</sub></button>
-          <p id="bulkconvertaonecost"></p>
+          <p id="bulkconvertaonecost" class="cost"></p>
         </div>&nbsp;
         <div>
           <button id="bulkautoclick">Bulk autoclicker</button>
-          <p id="bulkautoclickcost">DivCost: 1e1000</p>
+          <p id="bulkautoclickcost" class="cost">DivCost: 1e1000</p>
         </div>
       </div>
     </div>

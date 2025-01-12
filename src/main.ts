@@ -113,6 +113,7 @@ function updateTexts() {
         α<sub>2</sub>: ${format(player.alphatwo)}<br> 
         α<sub>3</sub>: ${format(player.alphathree)}<br>
         α<sub>4</sub>: ${format(player.alphafour)}<br>`
+    element("overview2").innerHTML = `Bulk level: ${format(player.bulkLevel)}`
 
     element("doubleaone").innerHTML = `${format(player.doubleaonemult)}x α<sub>1</sub>`
     element("bulkdoubleaone").innerHTML = `${format(player.doubleaonemult)}x α<sub>1</sub> (x${format(new ExpantaNumX.pow(10, player.bulkLevel))})`

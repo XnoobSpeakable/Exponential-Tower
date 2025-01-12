@@ -3,7 +3,7 @@
   line-height: 1.5;
   font-weight: 400;
   color: rgba(0,0,0, 0.87);
-  --background-color: #B0B0B0;
+  --background-color: #90A0D9;
   background-color: var(--background-color);
   --fill: #6a6a6a;
   --fill-active: #6a6a6ab1;
@@ -17,7 +17,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #DDDDDD;
+  background-color: #CEDFDF;
   cursor: pointer;
   transition: border-color 0.25s;
   color: inherit;
@@ -33,10 +33,10 @@ button:hover {
 
 :disabled {
   cursor: not-allowed;
-  background-color: #999999;
+  background-color: #997777;
 }
 :disabled:hover {
-  border-color: #AA9999;
+  border-color: #FF0000;
 }
 
 .flexcenter {
@@ -49,10 +49,15 @@ button:hover {
 }
 
 .centered {
-  padding: 20px;
   text-align: center; 
   max-width: 500px;
   margin: 0 auto;
+}
+.pad10 {
+  padding: 10px;
+}
+.pad20 {
+  padding: 20px;
 }
 
 .side {
@@ -87,7 +92,8 @@ button:hover {
 
 .floor {
   width: 600px;
-  height: 500px;
+  height: 450px;
+  background-color: #D9A090;
 }
 
 .buttonrow {
@@ -100,10 +106,39 @@ button:hover {
 
 #overview {
   position: fixed;
-  top: 5;
-  left: 20;
+  top: 5px;
+  left: 10px;
+  background-color: #90D9A0;
+
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  transition: border-color 0.25s;
+}
+
+#overview2 {
+  position: fixed;
+  top: 5px;
+  right: 10px;
+  background-color: #90D9A0;
+
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  transition: border-color 0.25s;
+
 }
 
 #wipesave {
   background-color: #FF4444;
+}
+
+.cost {
+  margin-top: 5px;
 }
