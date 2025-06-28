@@ -1,113 +1,166 @@
 import './style.css'
+import player, { getUpgradeTimesBought, load, resetGame, save, saveExport, saveImport, saveImportConfirm } from './data';
 import element from './dom';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { format } from './util';
+import { loadCosts, updateCostDisp, upgrades } from './upgrades';
 import { ExpantaNumX, ExpantaNumXType } from './ExpantaNumX';
 
-let storedIllion = new ExpantaNumX(0)
+load()
+loadCosts()
 
-element('one').onclick = () => {
-    storedIllion = storedIllion.add(1)
-    element('illion').innerText = storedIllion.toString()
+function toBottom()
+{
+    window.scrollTo(0, document.body.scrollHeight);
 }
+window.onload=toBottom;
 
-element('ten').onclick = () => {
-    storedIllion = storedIllion.add(10)
-    element('illion').innerText = storedIllion.toString()
+function clickDoubler() {
+    player.alphaone = player.alphaone.times(player.doubleaonemult)
 }
-
-element('mult').onclick = () => {
-    storedIllion = storedIllion.mul(10)
-    element('illion').innerText = storedIllion.toString()
-}
-
-element('pow').onclick = () => {
-    storedIllion = new ExpantaNumX(10).pow(storedIllion)
-    element('illion').innerText = storedIllion.toString()
-}
-
-element('comp').onclick = () => {
-    compute()
-}
-
-let number: string = ""
-
-const array = ["nullillion", "million", "billion", "trillion", "quadrillion", "quintillion", "sextillion", "septillion", "octillion", "nonillion"]
-const pref = ["nulli", "uni", "du", "tri", "quadri", "quinque", "sexa", "septa", "octo", "novem"]
-const specific = ["killillion", "megillion", "gigillion", "terillion", "petillion", "exillion", "zettillion", "yottillion", "ronnillion", "quettillion"]
-const lp = ["kilo", "mega", "giga", "tera", "peta", "exa", "zetta", "yotta", "ronna", "quetta"]
-
-function i(n: ExpantaNumXType | number | string) {
-    if (typeof n === "number") {
-        n = new ExpantaNumX(n)
+function bulkClickDoubler(bulk: ExpantaNumXType, powered: boolean) {
+    if(powered) {
+        bulk = new ExpantaNumX.pow(10, bulk)
     }
-    if (typeof n === "string") {
-        n = new ExpantaNumX(n)
-    }
-    return new ExpantaNumX(10).pow(n.times(3).plus(3))
+    player.alphaone = player.alphaone.times(player.doubleaonemult.pow(bulk))
 }
 
-function compute() {
-    number = "";
-    if(storedIllion.lt(10)) {
-        number = array[storedIllion.toNumber()]
-    } else if(storedIllion.lt(1000)) {
-        const str = storedIllion.toString()
-        number += pref[Number(str.slice(0, 1))]
-        if(storedIllion.gt(99)) {
-            number += pref[Number(str.slice(1, 2))]
-            number += array[Number(str.slice(2, 3))]
-        } else {
-            number += array[Number(str.slice(1, 2))]
-        }
-    } else if(storedIllion.lt(10**33 - 1)) {
-        const str = storedIllion.toString()
-        //github copilot code cuz im lazy
-        const parts: string[] = [];
-        const firstPartLength = str.length % 3 || 3;
-        parts.push(str.slice(0, firstPartLength));
-        for (let i = firstPartLength; i < str.length; i += 3) {
-            parts.push(str.slice(i, i + 3));
-        }
-        //end of copilot code
-        for(let i = 0; i < parts.length; i++) {
-            if(Number(parts[i]) == 0) continue
-            if(parts.length - i > 1) {
-                if(Number(parts[i]) > 1) {
-                    number += pref[Number(parts[i].slice(0, 1))]
-                    if(Number(parts[i]) > 99) {
-                        number += pref[Number(parts[i].slice(1, 2))]
-                        number += pref[Number(parts[i].slice(2, 3))]
-                    }
-                    else {
-                        number += pref[Number(parts[i].slice(1, 2))]
-                    }
-                }
-                number += lp[parts.length - i - 2]
-                number += '-'
-            } else {
-                number += pref[Number(parts[i].slice(0, 1))]
-                if(Number(parts[i]) > 99) {
-                    number += pref[Number(parts[i].slice(1, 2))]
-                    number += array[Number(parts[i].slice(2, 3))]
-                }
-                else {
-                    number += array[Number(parts[i].slice(1, 2))]
-                }
-            }
-        }
+element("doubleaone").onclick = () => { clickDoubler()};
+element("bulkdoubleaone").onclick = () => { bulkClickDoubler(player.bulkLevel, true)};
 
-        for(let i = 0; i < 10; i++) {
-            if(storedIllion.eq(10**(3*i + 3))) {
-                number = specific[i]
-                break
-            }
-        }
-    } else if(storedIllion.lt(i(10**33 - 1))) {
-        //todo
+let autoclickInterval: number | undefined = undefined;
+let bulkAutoclickInterval: number | undefined = undefined;
+let autobulkInterval: number | undefined = undefined;
+
+if(getUpgradeTimesBought("autoclick").gt(0)) {
+    clearInterval(autoclickInterval);
+    autoclickInterval = setInterval(() => { clickDoubler() }, player.autoclickKey)
+}
+if(getUpgradeTimesBought("bulkautoclick").gt(0)) {
+    clearInterval(bulkAutoclickInterval);
+    bulkAutoclickInterval = setInterval(() => { bulkClickDoubler(player.bulkLevel, true) }, player.bulkAutoclickKey)
+}
+if(getUpgradeTimesBought("autobulk").gt(0)) {
+    clearInterval(autobulkInterval);
+    if(getUpgradeTimesBought("autobulk").lte(10)) {
+        const t = 1000 / getUpgradeTimesBought("autobulk").toNumber()
+        autobulkInterval = setInterval(() => { 
+            player.bulkLevel = player.bulkLevel.plus(1) 
+            player.upgradesBought.bulkup = player.upgradesBought.bulkup.plus(1)
+            upgrades.bulkup.costFormula()
+            updateCostDisp(upgrades.bulkup.costDiv, upgrades.bulkup.cost, upgrades.bulkup.currency, "div")
+        }, t)
+    } else {
+        const times = getUpgradeTimesBought("autobulk").minus(9)
+        autobulkInterval = setInterval(() => { 
+            player.bulkLevel = player.bulkLevel.plus(times) 
+            player.upgradesBought.bulkup = player.upgradesBought.bulkup.plus(times)
+            upgrades.bulkup.costFormula()
+            updateCostDisp(upgrades.bulkup.costDiv, upgrades.bulkup.cost, upgrades.bulkup.currency, "div")
+        }, 100)
     }
 }
 
-
+//game loop
 setInterval(() => {
-    element('number').innerText = number
+    if(getUpgradeTimesBought("autoclick").gt(0) && player.autoclickFlag) {
+        clearInterval(autoclickInterval);
+        autoclickInterval = setInterval(() => { clickDoubler() }, player.autoclickKey)
+        player.autoclickFlag = false
+    }
+    if(getUpgradeTimesBought("bulkautoclick").gt(0) && player.bulkAutoclickFlag) {
+        clearInterval(bulkAutoclickInterval);
+        bulkAutoclickInterval = setInterval(() => { bulkClickDoubler(player.bulkLevel, true) }, player.autoclickKey)
+        player.bulkAutoclickFlag = false
+    }
+    if(getUpgradeTimesBought("autobulk").gt(0) && player.autobulkFlag) {
+        clearInterval(autobulkInterval);
+        if(getUpgradeTimesBought("autobulk").lte(10)) {
+            const t = 1000 / getUpgradeTimesBought("autobulk").toNumber()
+            autobulkInterval = setInterval(() => { 
+                player.bulkLevel = player.bulkLevel.plus(1) 
+                player.upgradesBought.bulkup = player.upgradesBought.bulkup.plus(1)
+                upgrades.bulkup.costFormula()
+                updateCostDisp(upgrades.bulkup.costDiv, upgrades.bulkup.cost, upgrades.bulkup.currency, "div")
+            }, t)
+        } else {
+            const times = getUpgradeTimesBought("autobulk").minus(9)
+            autobulkInterval = setInterval(() => { 
+                player.bulkLevel = player.bulkLevel.plus(times) 
+                player.upgradesBought.bulkup = player.upgradesBought.bulkup.plus(times)
+                upgrades.bulkup.costFormula()
+                updateCostDisp(upgrades.bulkup.costDiv, upgrades.bulkup.cost, upgrades.bulkup.currency, "div")
+            }, 100)
+        }
+        player.autobulkFlag = false
+    }
+
+    if(player.fixalphatwo) {
+        player.alphatwo = player.alphaone.logBase(ExpantaNumX.minus(10.1, player.upgradesBought.fixatwo.times(0.1)))
+    }
+
+    upgrades.convertaone.costFormula()
+    updateCostDisp(upgrades.convertaone.costDiv, upgrades.convertaone.cost, upgrades.convertaone.currency, "div")
+    upgrades.bulkconvertaone.costFormula() 
+    updateCostDisp(upgrades.bulkconvertaone.costDiv, upgrades.bulkconvertaone.cost, upgrades.bulkconvertaone.currency, "div")
 }, 100);
+
+function updateTexts() {
+    element("alphaonetext").innerHTML = `You have ${format(player.alphaone)} α<sub>1</sub>`
+    element("alphatwotext").innerHTML = `You have ${format(player.alphatwo)} α<sub>2</sub>`
+    element("alphathreetext").innerHTML = `You have ${format(player.alphathree)} α<sub>3</sub>`
+    element("alphafourtext").innerHTML = `You have ${format(player.alphafour)} α<sub>4</sub>`
+    element("overview").innerHTML = `α<sub>1</sub>: ${format(player.alphaone)}<br>
+        α<sub>2</sub>: ${format(player.alphatwo)}<br> 
+        α<sub>3</sub>: ${format(player.alphathree)}<br>
+        α<sub>4</sub>: ${format(player.alphafour)}<br>`
+    element("overview2").innerHTML = `Bulk level: ${format(player.bulkLevel)}`
+
+    element("doubleaone").innerHTML = `${format(player.doubleaonemult)}x α<sub>1</sub>`
+    element("bulkdoubleaone").innerHTML = `${format(player.doubleaonemult)}x α<sub>1</sub> (x${format(new ExpantaNumX.pow(10, player.bulkLevel))})`
+    element("bulkconvertaone").innerHTML = `Convert α<sub>1</sub> to α<sub>2</sub> (x${format(new ExpantaNumX.pow(10, player.bulkLevel))})`
+}
+
+function updateButtons() {
+    if(!getUpgradeTimesBought("bulkup").gt(0)) {
+        element("bulkdoubleaone").setAttribute("disabled", "disabled");
+        element("bulkconvertaone").setAttribute("disabled", "disabled");
+        element("bulkautoclick").setAttribute("disabled", "disabled");
+    } else {
+        element("bulkdoubleaone").removeAttribute("disabled");
+        element("bulkconvertaone").removeAttribute("disabled");
+        element("bulkautoclick").removeAttribute("disabled");
+    }
+    for (const upgrade in upgrades) {
+        const upgradeObj = upgrades[upgrade];
+        const canBuy = player[upgradeObj.currency].gte(upgradeObj.cost)
+        if(canBuy) {
+            element(upgradeObj.buttonDiv).removeAttribute("disabled")
+        } else {
+            element(upgradeObj.buttonDiv).setAttribute("disabled", "disabled")
+        }
+    }
+}
+
+//UI update loop
+setInterval(() => {
+    updateTexts()
+    updateButtons()
+}, 100);
+
+//save loop
+setInterval(() => {
+    save()
+}, 4000);
+
+element("wipesave").onclick = () => {resetGame()};
+element("export").onclick = () => { saveExport()};
+element("import").onclick = () => { saveImport()};
+element("saveimportconfirm").onclick = () => { saveImportConfirm()};
+
+if (import.meta.env.DEV) {
+    element("cheat").style.display = "inline";
+    function cheat() {
+        player.alphaone = player.alphaone.times(ExpantaNumX.pow(10, 1000))
+    }
+    element("cheat").onclick = () => { cheat()};
+}
