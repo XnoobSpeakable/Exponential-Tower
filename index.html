@@ -4,19 +4,118 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Exponential Tower</title>
-    <script type="module" crossorigin src="./assets/index-DoN2mkOx.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CZJxzGqf.css">
+    <script type="module" crossorigin src="./assets/index-tFENoemN.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CsHjD94T.css">
   </head>
   <body>
 
+    <div id="overview"></div>
+    <div id="overview2"></div>
 
-    <div id="version">α0.0.3</div>
-    <div id="settings">
-      <button id="wipesave">wipesave</button>
-      <button id="export">Export Save</button>
-      <button id="import">Import Save</button>
+    <div class="floor bordered centered pad20">
+      <div class="centered">Floor 4</div>
+      <div id="alphafourtext" class="centered pad10">You have 0 α<sub>4</sub></div>
+      <div class="centered pad10">Floor 4 coming in b1.2.0!</div>
     </div>
 
+    <div class="floor bordered centered pad20">
+      <div class="centered">Floor 3</div>
+      <div id="alphathreetext" class="centered pad10">You have 0 α<sub>3</sub></div>
+      <div class="buttonrow">
+        <div>
+          <button id="autobulk">Automatically increase bulk level</button>
+          <p id="autobulkcost" class="cost">Cost: 1</p>
+        </div>&nbsp;
+        <div>
+          <button id="fixatwo">Fix α<sub>2</sub> = log_10(α<sub>1</sub>)</button>
+          <p id="fixatwocost" class="cost">Cost: 1</p>
+        </div>
+      </div>
+      <div class="buttonrow" style="display:none;">
+        <div>
+          <button id="temp"></button>
+          <p id="h">Cost: 1</p>
+        </div>&nbsp;
+        <div>
+          <button id="fixup">Lower fix upgrade's log base by 0.1</button>
+          <p id="fixupcost" class="cost">Cost: 1</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="floor bordered centered pad20">
+      <div class="centered">Floor 2</div>
+      <div id="alphatwotext" class="centered pad10">You have 0 α<sub>2</sub></div>
+      <div class="buttonrow">
+        <div>
+          <button id="upaonemult">Increase α<sub>1</sub> multiplier power (+1x)</button>
+          <p id="upaonemultcost" class="cost">Cost: 1</p>
+        </div>&nbsp;
+        <div>
+          <button id="upaonepower">Raise α<sub>1</sub> multiplier to a power (+ ^1.1)</button>
+          <p id="upaonepowercost" class="cost">Cost: 1</p>
+        </div>
+      </div>
+      <div class="buttonrow">
+        <div>
+          <button id="upconversion">Reduce α<sub>2</sub> cost</button>
+          <p id="upconversioncost" class="cost">Cost: 22</p>
+        </div>&nbsp;
+        <div>
+          <button id="convertatwo">Convert α<sub>2</sub> to α<sub>3</sub></button>
+          <p id="convertatwocost" class="cost">Cost: 1e100</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="floor bordered centered pad20">
+      <div class="centered">Floor 1</div>
+      <div id="alphaonetext" class="centered pad10">You have 0 α<sub>1</sub></div>
+      <div class="buttonrow">
+        <div>
+          <button id="doubleaone">Double α<sub>1</sub></button>
+          <div>&nbsp;</div>
+        </div>&nbsp;
+        <div>
+          <button id="convertaone">Convert α<sub>1</sub> to α<sub>2</sub></button>
+          <p id="convertaonecost" class="cost">Cost: 1e15</p>
+        </div>&nbsp;
+        <div>
+          <button id="autoclick">Unlock or upgrade autoclicker</button>
+          <p id="autoclickcost" class="cost">Cost: 1e50</p>
+        </div>
+      </div>
+      <div class="buttonrow">
+        <div>
+          <button id="bulkup">Unlock/upgrade Bulk (10x)</button>
+          <p id="bulkupcost" class="cost">DivCost: 1e1000</p>
+        </div>
+      </div>
+      <div class="buttonrow">
+        <div>
+          <button id="bulkdoubleaone">Apply above button 10x bulk</button>
+          <div>&nbsp;</div>
+        </div>&nbsp;
+        <div>
+          <button id="bulkconvertaone">Bulk convert α<sub>1</sub> to α<sub>2</sub></button>
+          <p id="bulkconvertaonecost" class="cost"></p>
+        </div>&nbsp;
+        <div>
+          <button id="bulkautoclick">Bulk autoclicker</button>
+          <p id="bulkautoclickcost" class="cost">DivCost: 1e1000</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="version">β1.0.0</div>
+    <button id="wipesave">wipesave</button>
+    <button id="cheat" style="display:none;">cheat</button>
+    <button id="export">
+      Export Save
+    </button>
+    <button id="import">
+      Import Save 
+    </button>
     <textarea id="importareaid" name="importarea" rows="4" cols="50"
       style="display: none; text-align: left"></textarea>
     <button id="saveimportconfirm" style="display: none">
